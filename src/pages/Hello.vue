@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavMenu></NavMenu>
     <img src="../assets/logo.png">
     <div class="hello">
       <h1>{{ msg }}</h1>
@@ -9,13 +8,8 @@
 </template>
 
 <script>
-import NavMenu from '@/components/NavMenu'
-
 export default {
   name: 'hello',
-  components: {
-    NavMenu
-  },
   data () {
     return {
       msg: 'Welcome to JoExp, which is now decorating.'

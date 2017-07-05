@@ -1,12 +1,46 @@
 <template>
   <div id="app">
+    <NavMenu :navInfo="navInfo"></NavMenu>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import NavMenu from '@/components/NavMenu'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    NavMenu
+  },
+  data () {
+    return {
+      navInfo: [
+        {
+          name: '首页',
+          link: '/'
+        },
+        {
+          name: '我的工作台',
+          subInfo: [
+            {
+              name: '选项1'
+            },
+            {
+              name: '选项2'
+            },
+            {
+              name: '选项3'
+            }
+          ]
+        },
+        {
+          name: 'About',
+          link: 'about'
+        }
+      ]
+    }
+  }
 }
 </script>
 

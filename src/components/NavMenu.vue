@@ -1,25 +1,29 @@
 <template>
-  <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item index="1">首页</el-menu-item>
-    <el-submenu index="2">
-      <template slot="title">我的工作台</template>
-      <el-menu-item index="2-1">选项1</el-menu-item>
-      <el-menu-item index="2-2">选项2</el-menu-item>
-      <el-menu-item index="2-3">选项3</el-menu-item>
-    </el-submenu>
-    <el-menu-item index="3"><a href="" target="_blank">联系作者</a></el-menu-item>
+  <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <template v-for="(item, index) in navInfo" :key="item">
+      <el-menu-item :index="index.toString()" v-if="!item.subInfo || item.subInfo.length <= 0">
+        <router-link v-if="item.link" :to="item.link">{{ item.name }}</router-link>
+        <template v-else>{{ item.name }}</template>
+      </el-menu-item>
+      <el-submenu :index="index.toString()" v-else>
+        <template slot="title">{{ item.name }}</template>
+        <el-menu-item :index="index.toString()+'-'+subIndex" v-for="(subItem, subIndex) in item.subInfo" :key="subItem">
+          <router-link v-if="subItem.link" :to="subItem.link">{{ subItem.name }}</router-link>
+          <template v-else>{{ subItem.name }}</template>
+        </el-menu-item>
+      </el-submenu>
+    </template>
   </el-menu>
 </template>
-  
 
 <script>
   export default {
     data () {
       return {
-        activeIndex: '1',
-        activeIndex2: '1'
+        activeIndex: '1'
       }
     },
+    props: ['navInfo'],
     methods: {
       handleSelect (key, keyPath) {
         console.log(key, keyPath)
